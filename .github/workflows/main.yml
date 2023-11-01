@@ -18,7 +18,7 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t ksiva27/gs-maven:1.0 .
-      working-directory: C:\Users\SIVA RAMA KRISHNA\SampleJava\sample-maven-java\Package
+      working-directory: https://hub.docker.com/repository/docker/ksiva27/smj/general
       #./path/to/your/Dockerfile
       
     - name: Build Docker image
