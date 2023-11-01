@@ -18,7 +18,7 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t your-dockerhub-username/your-image-name:latest .
-      working-directory: https://github.com/Siva-creator-ops/sample-maven-java.git
+      working-directory: C:\Users\SIVA RAMA KRISHNA\SampleJava\sample-maven-java\Package
       #./path/to/your/Dockerfile
       
     - name: Build Docker image
