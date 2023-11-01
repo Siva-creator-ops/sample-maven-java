@@ -17,7 +17,13 @@ jobs:
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build -t ksiva27/gs-maven:0.1.0 .
+      run: docker build -t ksiva27/gs-maven:0.1.0 -f Dockerfile .
     
     - name: Push Docker image to Docker Hub
-      run: docker ksiva27/gs-maven:0.1.0
+      run: docker push ksiva27/smj:0.1.0
+
+          #docker build -t gs-maven:0.1.0 .
+
+         #docker tag gs-maven:0.1.0 ksiva27/smj:0.1.0
+
+          #docker push ksiva27/smj:0.1.0
