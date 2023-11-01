@@ -13,14 +13,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build Docker image
-      run: docker build -t your-dockerhub-username/your-image-name:latest .
-      working-directory: https://github.com/Siva-creator-ops/sample-maven-java/blob/main/dockerfile
-      #./path/to/your/Dockerfile
-
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
+    - name: Build Docker image
+      run: docker build -t your-dockerhub-username/your-image-name:latest .
+      working-directory: https://github.com/Siva-creator-ops/sample-maven-java.git
+      #./path/to/your/Dockerfile
+      
     - name: Build Docker image
       run: docker build -t ksiva27/gs-maven:0.1.0 -f Dockerfile .
     
