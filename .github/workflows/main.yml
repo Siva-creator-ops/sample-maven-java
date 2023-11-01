@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2 # Use the @v2 release to support Node.js version 16
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
@@ -27,16 +27,16 @@ jobs:
     needs: build_test
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2 # Use the @v2 release to support Node.js version 16
 
     - name: Login to Docker Hub
-      run: docker login -u ${{ secrets.ksiva27 }} -p ${{ secrets.Sivaram27 }}
+      run: docker login -u ${{ secrets.ksiva1023@outlook.com }} -p ${{ secrets.Sivaram27 }}
     
-    - name: Build Docker image
-      run: docker build -t my-java-app .
-    
-    - name: Push Docker image to Docker Hub
-      run: docker push my-java-app
+    - name: Set up Docker environment
+      run: |
+        export DOCKER_REPO=my-java-app
+        docker build -t $DOCKER_REPO .
+        docker push $DOCKER_REPO
 
   deploy:
     runs-on: ubuntu-latest
