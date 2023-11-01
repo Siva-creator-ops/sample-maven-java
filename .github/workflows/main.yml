@@ -17,8 +17,8 @@ jobs:
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build -t your-dockerhub-username/your-image-name:latest .
-      working-directory: C:\Users\SIVA RAMA KRISHNA\SampleJava\sample-maven-java\Package
+      run: docker build -t ksiva27/gs-maven:1.0 .
+    # working-directory: C:\Users\SIVA RAMA KRISHNA\SampleJava\sample-maven-java\Package
       #./path/to/your/Dockerfile
       
     - name: Build Docker image
