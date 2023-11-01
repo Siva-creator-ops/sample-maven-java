@@ -34,7 +34,7 @@ jobs:
     
     - name: Set up Docker environment
       run: |
-        export DOCKER_REPO=my-java-app
+        export DOCKER_REPO=smj
         docker build -t $DOCKER_REPO .
         docker push $DOCKER_REPO
 
