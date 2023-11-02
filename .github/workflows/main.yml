@@ -44,6 +44,9 @@ jobs:
     - name: Create Temporary Directory
       run: mkdir temp_dir
 
+    - name: Unzip the Package
+      run: unzip -q -o Package.zip -d temp_dir
+
     - name: Copy Package Directory
       run: cp -r Package temp_dir
 
