@@ -32,24 +32,23 @@ jobs:
         docker build -t ksiva27/myapp:latest .
         docker push ksiva27/myapp:latest
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1  # Update this to your desired AWS region
-
-    - name: Deploy to Amazon ECS
-      run: aws ecs update-service --service my-ecs-service --cluster my-ecs-cluster --force-new-deployment
-
-    - name: Install kubectl
-      run: |
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
-
-    - name: Update kubeconfig
-      run: aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster
-
-    - name: Deploy to Amazon EKS
-      run: kubectl apply -f your-kubernetes-manifest.yml  # Replace with the path to your Kubernetes manifest file
+    - name: Configure AWS Credentials
+      run: aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} && aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} && aws configure set default.region ${{ secrets.AWS_DEFAULT_REGION }}
+  
+    - name: Create ECR Repository
+      run: aws ecr create-repository --repository-name myapp || true
+  
+    - name: Login to Amazon ECR
+      run: aws ecr get-login-password --region ${{ secrets.AWS_DEFAULT_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com
+  
+    - name: Tag Docker Image
+      run: docker tag donthi002/myapp:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/myapp:latest
+  
+    - name: Push Docker Image to ECR
+      run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/myapp:latest
+  
+    - name: Configure kubectl
+      run: aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name dockerhub-to-eks
+  
+    - name: Deploy to EKS
+      run: kubectl apply -f my-app-deployment.yaml
