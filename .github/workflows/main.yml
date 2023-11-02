@@ -41,6 +41,12 @@ jobs:
         name: Package
         path: staging
 
+    - name: Create Temporary Directory
+      run: mkdir temp_dir
+
+    - name: Copy Package Directory
+      run: cp -r Package temp_dir
+
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
