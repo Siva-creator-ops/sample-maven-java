@@ -52,3 +52,6 @@ jobs:
   
     - name: Deploy to EKS
       run: kubectl apply -f my-app-deployment.yaml
+
+    - name: Expose EKS Service
+      run: kubectl apply -f my-app-service.yaml
