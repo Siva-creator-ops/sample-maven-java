@@ -16,6 +16,13 @@ jobs:
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
+    - name: Copy Jar file
+      run: mv build/libs/$(ls build/libs) app.jar
+
+    - uses: actions/upload-artifact@master
+      with:
+          name: jar-file
+          path: app.jar
     - name: Build Docker image
       run: docker build -t ksiva27/smj:1.0 -f Dockerfile .
       
