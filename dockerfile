@@ -5,7 +5,7 @@ FROM openjdk:11
 WORKDIR /target
 
 # Copy the generated artifacts into the container
-COPY Package/*.jar /
+COPY target/*.jar /
 
 # Define the command to execute your application
 CMD ["java", "-jar" , "myapp.jar"]
