@@ -15,11 +15,9 @@ jobs:
 
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-      
+
     - name: Build Docker image
-      run: docker build -t ksiva27/gs-maven:1.0 -f Dockerfile .
-    
+      run: docker build -t ksiva27/smj:1.0 -f Dockerfile .
+      
     - name: Push Docker image to Docker Hub
       run: docker push ksiva27/smj:1.0
-
-      #C:\Users\SIVA RAMA KRISHNA\SampleJava\sample-maven-java\Package
